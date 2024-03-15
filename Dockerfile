@@ -9,7 +9,7 @@ COPY src ./src
 RUN mvn  clean package -DskipTests
 # Use an official OpenJDK image as the base 
 FROM openjdk:17
-# Set the working directory in the container
+# Set the working directory in the con
 WORKDIR /payall
 # Copy the built JAR file from the previous stage to the container
 COPY --from=build /payall/target/*.jar app.jar
