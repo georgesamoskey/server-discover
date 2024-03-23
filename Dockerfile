@@ -14,5 +14,5 @@ WORKDIR /payall
 # Copy the built JAR file from the previous stage to the container
 COPY --from=build /payall/target/*.jar app.jar
 
-# Set the command to run the applicat
+# Set the command to run the application
 CMD ["java", "-jar", "app.jar"]
