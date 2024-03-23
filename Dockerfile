@@ -11,7 +11,7 @@ RUN mvn  clean package -DskipTests
 FROM openjdk:17
 # Set the working directory in the con
 WORKDIR /payall
-# Copy the built JAR file from the previous stage to the container
+# Copy the built JAR file from the previous stage to the containers
 COPY --from=build /payall/target/*.jar app.jar
 
 # Set the command to run the applications
