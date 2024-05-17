@@ -1,13 +1,8 @@
-# version: "3.7"
-# services:
-#   payall-spring-boot:
-#     container_name:  payall-spring-boot
-#     image: payall:latest
-#     ports:
-#       - "8087:8087"
 version: "3.8"
 services:
-  web:
+  payall-server-decouverte:
+    container_name: payall-server-decouverte
+    restart: always
     build: ./
     ports:
       - "8761:8761"

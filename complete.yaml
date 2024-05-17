@@ -1,0 +1,65 @@
+version: '3'
+services:
+  payall-serveur-decouverte:
+    image: asyst-payall-server-discovery:latest
+    ports:
+      - "8761:8761"
+    environment:
+      - spring.application.name=payall-serveur-decouverte
+      - eureka.client.registerWithEureka=false
+      - eureka.client.fetchRegistry=false
+      - eureka.server.waitTimeInMsWhenSyncEmpty=0
+    networks:
+      - eureka-network
+
+  # account-service:
+  #   image: jerry4664/ams:latest
+  #   ports:
+  #     - "9002:9002"
+  #   environment:
+  #     - spring.data.solr.host=http://solr1:8983/solr/first_core
+  #     - eureka.instance.preferIpAddress=true
+  #     - eureka.client.service-url.defaultZone=http://payall-serveur-decouverte:8761/eureka
+  #   networks:
+  #     - eureka-network
+  #   depends_on:
+  #     - payall-serveur-decouverte
+
+  # user-account-service:
+  #   image: jerry4664/ams-users:latest
+  #   ports:
+  #     - "9001:9001"
+  #   environment:
+  #     - eureka.instance.preferIpAddress=true
+  #     - eureka.client.service-url.defaultZone=http://payall-serveur-decouverte:8761/eureka
+  #   networks:
+  #     - eureka-network
+  #   depends_on:
+  #     - payall-serveur-decouverte
+
+  api-gateway:
+    image: asyst-payall-server-discovery:latest
+    ports:
+      - "8090:8090"
+    environment:
+      - eureka.instance.preferIpAddress=true
+      - eureka.client.service-url.defaultZone=http://payall-serveur-decouverte:8761/eureka
+    networks:
+      - eureka-network
+    depends_on:
+      - payall-serveur-decouverte
+
+  # auth-service:
+  #   image: jerry4664/auth-service:latest
+  #   ports:
+  #     - "9003:9003"
+  #   environment:
+  #     - eureka.instance.preferIpAddress=true
+  #     - eureka.client.service-url.defaultZone=http://payall-serveur-decouverte:8761/eureka
+  #   networks:
+  #     - eureka-network
+  #   depends_on:
+  #     - payall-serveur-decouverte
+
+networks:
+  eureka-network:

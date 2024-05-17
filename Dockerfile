@@ -10,9 +10,9 @@ RUN mvn  clean package -DskipTests
 # Use an official OpenJDK image as the base 
 FROM openjdk:17
 # Set the working directory in the con
-WORKDIR /payall
+WORKDIR /asyst-payall-server-discovery
 # Copy the built JAR file from the previous stage to the containers
-COPY --from=build /payall/target/*.jar app.jar
+COPY --from=build /asyst-payall-server-discovery/target/*.jar app.jar
 
 # Set the command to run the applications
 CMD ["java", "-jar", "app.jar"]
