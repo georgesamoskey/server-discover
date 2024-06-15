@@ -1,7 +1,7 @@
 version: '3.8'
 services:
-  payall-server-decouverte-service:
-    container_name: payall-server-decouverte-service
+  payall-serveur-decouverte-service:
+    container_name: payall-serveur-decouverte-service
     image: asyst-payall-server-discovery:latest
     restart: always
     ports:
