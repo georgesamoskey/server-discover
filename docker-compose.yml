@@ -1,8 +1,16 @@
-version: "3.8"
+version: '3.8'
 services:
   payall-server-decouverte:
     container_name: payall-server-decouverte
+    image: asyst-payall-server-discovery:latest
     restart: always
-    build: ./
     ports:
       - "8761:8761"
+    networks:
+      - eureka-network
+    # depends_on:
+    #   - payall-serveur-decouverte-service
+
+networks:
+  eureka-network:
+    external: true

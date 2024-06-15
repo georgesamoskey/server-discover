@@ -1,39 +1,33 @@
 pipeline {
   agent any
   stages {
-    stage("Verification des outils ") {
+    stage("Verifications des outils ") {
       steps {
-        bat 'docker version'
-        bat 'docker info'
-        bat 'docker compose version'
-        bat 'curl --version'
+        sh 'docker version'
+        sh 'docker info'
+        sh 'docker compose version'
+        sh 'curl --version'
             }
         }
-    stage("Creations des volumes ") {
+
+    stage(" Construction  d'image ") {
      steps {
-            bat 'docker system prune -a --volumes -f'
+             sh 'docker build -t  asyst-payall-server-discovery .'
         }
     }
-    stage(" Demarrage de container ") {
+    stage(" Deploiement de container ") {
      steps {
-             bat 'docker compose up -d  --no-color --wait'
-             bat 'docker compose ps'
+             sh 'docker compose up -d  --no-color --wait'
+             sh 'docker compose ps'
         }
     }
     
-
-    stage('Check Response') {
-        steps {
-            bat 'curl http://localhost'
-        }
-    } 
 
   }
 
   post{
     always{
-        // bat 'docker compose down --remove-orphans -v'
-        bat 'docker compose ps'
+        sh 'docker compose ps'
     }
 }
 }
